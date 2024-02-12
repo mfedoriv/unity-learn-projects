@@ -15,7 +15,7 @@ public class Graph : MonoBehaviour
         {
             Transform point = Instantiate(pointPrefab, transform, false);
             position.x = (i + 0.5f) * step - 1f; // filling (-1,1) range
-            position.y = position.x * position.x;
+            position.y = position.x * position.x * position.x;
             point.localPosition = position;
             point.localScale = scale;
         }
