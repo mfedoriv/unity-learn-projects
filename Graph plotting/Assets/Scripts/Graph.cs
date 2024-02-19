@@ -5,7 +5,7 @@ public class Graph : MonoBehaviour
 {
     [SerializeField] private Transform pointPrefab;
 
-    [SerializeField, Range(10, 100)] private int resolution = 10;
+    [SerializeField, Range(10, 200)] private int resolution = 10;
 
     [SerializeField] private FunctionLibrary.FunctionName function;
     [SerializeField, Min(0f)] private float functionDuration = 1f, transitionDuration = 1f;
@@ -49,7 +49,6 @@ public class Graph : MonoBehaviour
         else if (_duration >= functionDuration)
         {
             _duration -= functionDuration;
-            // function = FunctionLibrary.GetNextFunctionName(function);
             transitioning = true;
             transitionFunction = function;
             PickNextFunction();
