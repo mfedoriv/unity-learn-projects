@@ -3,30 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField, Min(0f)] private float
-        maxXSpeed = 20f;
-
-    [FormerlySerializedAs("constantXSpeed")] [SerializeField, Min(0f)] private float
-        startXSpeed = 8f;
-
-    [SerializeField, Min(0f)] private float
+        maxXSpeed = 20f,
+        maxStartXSpeed = 2f,
         constantYSpeed = 10f,
         extents = 0.5f;
 
-    private Vector2 position, velocity;
+    private Vector2 _position, _velocity;
 
-    public Vector2 Velocity => velocity;
+    public Vector2 Velocity => _velocity;
 
     public float Extents => extents;
 
-    public Vector2 Position => position;
+    public Vector2 Position => _position;
 
-    public void UpdateVisualisation() => transform.localPosition = new Vector3(position.x, 0f, position.y);
+    public void UpdateVisualisation() => transform.localPosition = new Vector3(_position.x, 0f, _position.y);
 
-    public void Move() => position += velocity * Time.deltaTime;
+    public void Move() => _position += _velocity * Time.deltaTime;
 
     private void Awake()
     {
@@ -35,34 +32,35 @@ public class Ball : MonoBehaviour
 
     public void StartNewGame()
     {
-        position = Vector2.zero;
+        _position = Vector2.zero;
         UpdateVisualisation();
-        velocity = new Vector2(startXSpeed, constantYSpeed);
+        _velocity.x = Random.Range(-maxXSpeed, maxStartXSpeed);
+        _velocity.y = -constantYSpeed;
         gameObject.SetActive(true);
     }
 
     public void EndGame()
     {
-        position.x = 0f;
+        _position.x = 0f;
         gameObject.SetActive(false);
     }
 
     public void SetXPositionAndSpeed(float start, float speedFactor, float deltaTime)
     {
-        velocity.x = maxXSpeed * speedFactor;
-        position.x = start + velocity.x * deltaTime;
+        _velocity.x = maxXSpeed * speedFactor;
+        _position.x = start + _velocity.x * deltaTime;
     }
 
     public void BounceX(float boundary)
     {
-        position.x = 2f * boundary - position.x;
-        velocity.x = -velocity.x;
+        _position.x = 2f * boundary - _position.x;
+        _velocity.x = -_velocity.x;
     }
 
     public void BounceY(float boundary)
     {
-        position.y = 2f * boundary - position.y;
-        velocity.y = -velocity.y;
+        _position.y = 2f * boundary - _position.y;
+        _velocity.y = -_velocity.y;
     }
 
 }

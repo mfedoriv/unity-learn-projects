@@ -18,11 +18,11 @@ public class Game : MonoBehaviour
 
     [SerializeField, Min(1f)] private float newGameDelay = 3f;
 
-    private float countdownUntilNewGame;
+    private float _countdownUntilNewGame;
 
     private void Awake()
     {
-        countdownUntilNewGame = newGameDelay;
+        _countdownUntilNewGame = newGameDelay;
     }
 
     void StartNewGame()
@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
     {
         bottomPaddle.Move(ball.Position.x, arenaExtents.x);
         topPaddle.Move(ball.Position.x, arenaExtents.x);
-        if (countdownUntilNewGame <= 0f)
+        if (_countdownUntilNewGame <= 0f)
         {
             UpdateGame();
         }
@@ -56,15 +56,15 @@ public class Game : MonoBehaviour
 
     private void UpdateCountdown()
     {
-        countdownUntilNewGame -= Time.deltaTime;
-        if (countdownUntilNewGame <= 0f)
+        _countdownUntilNewGame -= Time.deltaTime;
+        if (_countdownUntilNewGame <= 0f)
         {
             countdownText.gameObject.SetActive(false);
             StartNewGame();
         }
         else
         {
-            float displayValue = Mathf.Ceil(countdownUntilNewGame);
+            float displayValue = Mathf.Ceil(_countdownUntilNewGame);
             if (displayValue < newGameDelay)
             {
                 countdownText.SetText("{0}", displayValue);
@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
 
     private void EndGame()
     {
-        countdownUntilNewGame = newGameDelay;
+        _countdownUntilNewGame = newGameDelay;
         countdownText.SetText("GAME OVER");
         countdownText.gameObject.SetActive(true);
         ball.EndGame();
