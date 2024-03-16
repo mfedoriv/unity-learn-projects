@@ -17,11 +17,28 @@ public class Paddle : MonoBehaviour
 
     [SerializeField] private TextMeshPro scoreText;
 
+    [SerializeField] private MeshRenderer goalRenderer;
+
+    [SerializeField, ColorUsage(true, true)]
+    private Color goalColor = Color.white;
+
+    [SerializeField, Min(1f)] private float scoreColorIntencity = 3;
     private int _score;
     private float _extents, _targetingBias;
 
+    private static readonly int
+        EmissionColorId = Shader.PropertyToID("_EmissionColor"),
+        FaceColorId = Shader.PropertyToID("_FaceColor"),
+        TimeOfLastHitId = Shader.PropertyToID("_TimeOfLastHit");
+
+    private Material _goalMaterial, _paddleMaterial, _scoreMaterial;
+
     private void Awake()
     {
+        _goalMaterial = goalRenderer.material;
+        _goalMaterial.SetColor(EmissionColorId, goalColor);
+        _paddleMaterial = GetComponent<MeshRenderer>().material;
+        _scoreMaterial = scoreText.fontMaterial;
         SetScore(0);
     }
 
@@ -29,6 +46,7 @@ public class Paddle : MonoBehaviour
     {
         _score = newScore;
         scoreText.SetText("{0}", newScore);
+        _scoreMaterial.SetColor(FaceColorId, goalColor * (newScore / pointsToWin) * scoreColorIntencity);
         // Shrink extents of a paddle when scoring
         SetExtents(Mathf.Lerp(maxExtents, minExtents, newScore / (pointsToWin - 1f)));
     }
@@ -54,6 +72,7 @@ public class Paddle : MonoBehaviour
 
     public bool ScorePoint(int pointsToWin)
     {
+        _goalMaterial.SetFloat(TimeOfLastHitId, Time.time);
         SetScore(_score + 1, pointsToWin);
         return _score >= pointsToWin;
     }
@@ -99,6 +118,11 @@ public class Paddle : MonoBehaviour
     {
         ChangeTargetingBias();
         hitFactor = (ballX - transform.localPosition.x) / (_extents + ballExtents);
-        return -1f <= hitFactor && hitFactor <= 1f;
+        bool isSuccess = -1f <= hitFactor && hitFactor <= 1f;
+        if (isSuccess)
+        {
+            _paddleMaterial.SetFloat(TimeOfLastHitId, Time.time);
+        }
+        return isSuccess;
     }
 }

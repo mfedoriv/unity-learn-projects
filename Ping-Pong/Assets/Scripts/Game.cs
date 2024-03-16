@@ -15,11 +15,10 @@ public class Game : MonoBehaviour
     [SerializeField, Min(2)] private int pointsToWin = 3;
 
     [SerializeField] private TextMeshPro countdownText;
-
     [SerializeField, Min(1f)] private float newGameDelay = 3f;
 
     [SerializeField] private LivelyCamera livelyCamera;
-
+    
     private float _countdownUntilNewGame;
 
     private void Awake()

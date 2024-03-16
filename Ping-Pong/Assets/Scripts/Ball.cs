@@ -13,6 +13,15 @@ public class Ball : MonoBehaviour
         constantYSpeed = 10f,
         extents = 0.5f;
 
+    [SerializeField] private ParticleSystem
+        bounceParticleSystem,
+        startParticleSystem,
+        trailParticleSystem;
+
+    [SerializeField] private int
+        bounceParticleEmission = 20,
+        startParticleEmission = 100;
+
     private Vector2 _position, _velocity;
 
     public Vector2 Velocity => _velocity;
@@ -21,7 +30,11 @@ public class Ball : MonoBehaviour
 
     public Vector2 Position => _position;
 
-    public void UpdateVisualisation() => transform.localPosition = new Vector3(_position.x, 0f, _position.y);
+    public void UpdateVisualisation()
+    {
+        trailParticleSystem.transform.localPosition =
+            transform.localPosition = new Vector3(_position.x, 0f, _position.y);
+    }
 
     public void Move() => _position += _velocity * Time.deltaTime;
 
@@ -37,12 +50,16 @@ public class Ball : MonoBehaviour
         _velocity.x = Random.Range(-maxXSpeed, maxStartXSpeed);
         _velocity.y = -constantYSpeed;
         gameObject.SetActive(true);
+        startParticleSystem.Emit(startParticleEmission);
+        SetTrailEmission(true);
+        trailParticleSystem.Play();
     }
 
     public void EndGame()
     {
         _position.x = 0f;
         gameObject.SetActive(false);
+        SetTrailEmission(false);
     }
 
     public void SetXPositionAndSpeed(float start, float speedFactor, float deltaTime)
@@ -53,14 +70,39 @@ public class Ball : MonoBehaviour
 
     public void BounceX(float boundary)
     {
+        float durationAfterBounce = (_position.x - boundary) / _velocity.x;
         _position.x = 2f * boundary - _position.x;
         _velocity.x = -_velocity.x;
+        EmitBounceParticles(
+            boundary,
+            _position.y - _velocity.y * durationAfterBounce,
+            boundary < 0f ? 90f : 270f
+        );
     }
 
     public void BounceY(float boundary)
     {
+        float durationAfterBounce = (_position.y - boundary) / _velocity.y;
         _position.y = 2f * boundary - _position.y;
         _velocity.y = -_velocity.y;
+        EmitBounceParticles(
+            _position.x - _velocity.x * durationAfterBounce,
+            boundary,
+            boundary < 0f ? 0f : 180f
+        );
     }
 
+    private void EmitBounceParticles(float x, float z, float rotation)
+    {
+        ParticleSystem.ShapeModule shape = bounceParticleSystem.shape;
+        shape.position = new Vector3(x, 0f, z);
+        shape.rotation = new Vector3(0f, rotation, 0f);
+        bounceParticleSystem.Emit(bounceParticleEmission);
+    }
+
+    private void SetTrailEmission(bool enabled)
+    {
+        ParticleSystem.EmissionModule emission = trailParticleSystem.emission;
+        emission.enabled = enabled;
+    }
 }
