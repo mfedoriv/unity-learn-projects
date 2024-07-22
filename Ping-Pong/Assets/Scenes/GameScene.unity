@@ -597,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: speed
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: scoreText
@@ -605,7 +605,7 @@ PrefabInstance:
       objectReference: {fileID: 13264453}
     - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: minExtents
-      value: 3.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: goalColor.b
@@ -623,6 +623,10 @@ PrefabInstance:
       propertyPath: goalRenderer
       value: 
       objectReference: {fileID: 1410746955}
+    - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
+      propertyPath: scoreColorIntencity
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4011188811693793688, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: m_Name
       value: PaddleAI
@@ -786,6 +790,10 @@ PrefabInstance:
       propertyPath: goalRenderer
       value: 
       objectReference: {fileID: 2023501014}
+    - target: {fileID: -1788072397513631214, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
+      propertyPath: scoreColorIntencity
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4011188811693793688, guid: fc7df5bae128aab459cb3bbf381f1434, type: 3}
       propertyPath: m_Name
       value: PaddlePlayer
@@ -1179,8 +1187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   springStrength: 100
   dampingStrength: 10
-  jostleStrength: 20
-  pushStrength: 0.5
+  jostleStrength: 15
+  pushStrength: 0.3
   maxDeltaTime: 0.016666668
 --- !u!1 &1017019127
 GameObject:
@@ -1503,9 +1511,9 @@ MonoBehaviour:
   bottomPaddle: {fileID: 1251752382}
   topPaddle: {fileID: 1343416824}
   arenaExtents: {x: 10, y: 10}
-  pointsToWin: 10
+  pointsToWin: 3
   countdownText: {fileID: 1097423831}
-  newGameDelay: 2
+  newGameDelay: 4
   livelyCamera: {fileID: 963194230}
 --- !u!4 &1124983615
 Transform:
@@ -2094,6 +2102,10 @@ PrefabInstance:
     - target: {fileID: 4619984787262684671, guid: cfccb26223367c440b022cf3e03385f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498714350656143895, guid: cfccb26223367c440b022cf3e03385f9, type: 3}
+      propertyPath: constantYSpeed
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5498714350656143895, guid: cfccb26223367c440b022cf3e03385f9, type: 3}
       propertyPath: startParticleSystem

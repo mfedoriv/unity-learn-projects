@@ -22,7 +22,7 @@ public class Paddle : MonoBehaviour
     [SerializeField, ColorUsage(true, true)]
     private Color goalColor = Color.white;
 
-    [SerializeField, Min(1f)] private float scoreColorIntencity = 3;
+    [SerializeField, Min(1f)] private float scoreColorIntencity = 2;
     private int _score;
     private float _extents, _targetingBias;
 
@@ -33,6 +33,8 @@ public class Paddle : MonoBehaviour
 
     private Material _goalMaterial, _paddleMaterial, _scoreMaterial;
 
+    public int Score() => _score;
+    
     private void Awake()
     {
         _goalMaterial = goalRenderer.material;

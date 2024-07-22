@@ -77,7 +77,8 @@ public class Game : MonoBehaviour
     private void EndGame()
     {
         _countdownUntilNewGame = newGameDelay;
-        countdownText.SetText("GAME OVER");
+        countdownText.SetText(bottomPaddle.Score() == pointsToWin ? "YOU WIN!" : "GAME OVER");
+
         countdownText.gameObject.SetActive(true);
         ball.EndGame();
     }
