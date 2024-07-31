@@ -45,6 +45,15 @@ public class MovingSphere : MonoBehaviour
         // Using OR assignment to prevent value setting back to false, if we don't call FixedUpdate in next frame.
         // That way it remains true once enabled until we explicitly set it back to false.
         _isDesiredJump |= Input.GetButtonDown("Jump");
+        
+        ChangeColorOnGround();
+    }
+
+    private void ChangeColorOnGround()
+    {
+        GetComponent<Renderer>().material.SetColor(
+            "_BaseColorStart", OnGround ? Color.black : Color.white
+        );
     }
 
    
