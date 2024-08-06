@@ -27,7 +27,7 @@ namespace CodeBase.Infrastructure
 
             while (!waitNextScene.isDone)
                 yield return null;
-
+            
             onLoaded?.Invoke();
         }
     }

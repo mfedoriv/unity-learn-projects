@@ -571,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4705759454694578, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.9502683
+      value: -5.53
       objectReference: {fileID: 0}
     - target: {fileID: 4705759454694578, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -579,7 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4705759454694578, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.992157
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 4705759454694578, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -610,8 +610,32 @@ PrefabInstance:
       value: 80.213
       objectReference: {fileID: 0}
     - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_Intensity
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_SpotAngle
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108536025708688942, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 120717964489880894, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 120717964489880894, guid: 4e0562afa3c1cd444ba78361d1f490a7, type: 3}
       propertyPath: m_Parameters.widthMultiplier
