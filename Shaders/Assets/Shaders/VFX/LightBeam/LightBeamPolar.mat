@@ -38,15 +38,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _CenterOffsetX: 0.5
+    - _CenterOffsetY: 0.5
     - _DissolveAngleDelta: 0.05
     - _DistanceFullyTransparent: 0.2
     - _DistanceStartsFadeOut: 0.7
+    - _InnerTransparensyRadius: 0.2
     - _LightIntensity: 1
     - _NoiseScale: 30
-    - _OpeningRadius: 62
+    - _OpeningAngle: 45
+    - _OuterTransparencyRadius: 0
     - _ParallelDissolvePower: 0.2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RotationAngle: 0
+    - _ScaleX: 1
+    - _ScaleY: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _NoiseSpeed: {r: -0.02, g: 0, b: 0, a: 0}
