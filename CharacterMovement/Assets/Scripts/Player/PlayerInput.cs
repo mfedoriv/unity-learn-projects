@@ -1,62 +1,58 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using ECM2;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class PlayerInput : MonoBehaviour
     {
         private Character _character;
-
         private void Awake()
         {
             _character = GetComponent<Character>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void OnJump(InputAction.CallbackContext context)
         {
-            Vector2 inputMove = new Vector2()
-            {
-                x = Input.GetAxisRaw("Horizontal"),
-                y = Input.GetAxisRaw("Vertical")
-            };
+            if (context.started)
+                _character.Jump();
+            else if (context.canceled)
+                _character.StopJumping();
+        }
+        
+        public void OnCrouch(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                _character.Crouch();
+            else if (context.canceled)
+                _character.UnCrouch();
+        }
+        
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            // Read input values
+
+            Vector2 inputMovement = context.ReadValue<Vector2>();
+
+            // Compose a movement direction vector in world space
 
             Vector3 movementDirection = Vector3.zero;
-            movementDirection += Vector3.right * inputMove.x;
-            movementDirection += Vector3.forward * inputMove.y;
+
+            movementDirection += Vector3.forward * inputMovement.y;
+            movementDirection += Vector3.right * inputMovement.x;
+
+            // If character has a camera assigned,
+            // make movement direction relative to this camera view direction
 
             if (_character.camera)
-            {
-                movementDirection = movementDirection.relativeTo(_character.cameraTransform);
+            {               
+                movementDirection 
+                    = movementDirection.relativeTo(_character.cameraTransform);
             }
-            
-            _character.SetMovementDirection(movementDirection);
+        
+            // Set character's movement direction vector
 
-            // Crouch input
-            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C))
-            {
-                _character.Crouch();
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C))
-            {
-                _character.UnCrouch();
-            }
-            
-            // Jump Input
-            if (Input.GetButtonDown("Jump"))
-            {
-                _character.Jump();
-            }
-            else if (Input.GetButtonUp("Jump"))
-            {
-                _character.StopJumping();
-            }
-            
-            
+            _character.SetMovementDirection(movementDirection);
         }
     }
 }
-
