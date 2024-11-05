@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using ECM2;
 using UnityEngine;
@@ -8,34 +9,29 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow.")]
-        [SerializeField]
-        private GameObject cameraTarget;
-
+        [Header("Camera Settings")]
         [Tooltip("How far in degrees can you move the camera up.")]
-        [SerializeField]
-        private float maxPitch = 80.0f;
+        [SerializeField] private float maxPitch = 80.0f;
 
         [Tooltip("How far in degrees can you move the camera down.")]
-        [SerializeField]
-        private float minPitch = -80.0f;
+        [SerializeField] private float minPitch = -80.0f;
         
         [Space(15.0f)] [Tooltip("Mouse look sensitivity")]
-        [SerializeField]
-        private Vector2 mouseSensitivity = new Vector2(1.5f, 1.25f);
+        [SerializeField] private Vector2 mouseSensitivity = new Vector2(1.5f, 1.25f);
+        
+        
+        [Header("Cinemachine")]
+        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow.")]
+        [SerializeField] private GameObject cameraTarget;
 
         [Space(15.0f)] [Tooltip("Cinemachine Virtual Camera positioned at desired crouched height.")]
-        [SerializeField]
-        private CinemachineVirtualCamera crouchedCamera;
+        [SerializeField] private CinemachineVirtualCamera crouchedCamera;
         
         [Tooltip("Cinemachine Virtual Camera positioned at desired un-crouched height.")]
-        [SerializeField]
-        private CinemachineVirtualCamera unCrouchedCamera;
+        [SerializeField] private CinemachineVirtualCamera unCrouchedCamera;
         
         [Tooltip("Noise amplitude gain multiplier.")]
-        [SerializeField]
-        private float amplitudeMultiplier = 1f;
+        [SerializeField] private float amplitudeMultiplier = 1f;
         
         private CinemachineBasicMultiChannelPerlin _unCrouchedNoiseProfile;
         private CinemachineBasicMultiChannelPerlin _crouchedNoiseProfile;
@@ -46,6 +42,10 @@ namespace Player
         private void Awake()
         {
             _character = GetComponent<Character>();
+            if (_character == null)
+            {
+                Debug.LogError("Character component is missing on PlayerController.");
+            }
             
             if (unCrouchedCamera != null)
             {
@@ -56,8 +56,6 @@ namespace Player
             {
                 _crouchedNoiseProfile = crouchedCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             }
-            
-            _inputHandler = PlayerInputHandler.Instance;
         }
 
         private void Start()
@@ -67,6 +65,12 @@ namespace Player
             // Disable Character's rotation mode, we'll handle it here
 
             _character.SetRotationMode(Character.RotationMode.None);
+            
+            _inputHandler = PlayerInputHandler.Instance;
+            if (_inputHandler == null)
+            {
+                Debug.LogError("PlayerInputHandler instance is not found.");
+            }
         }
 
         private void OnEnable()
@@ -88,6 +92,10 @@ namespace Player
         private void Update()
         {
             HandleMovement();
+        }
+
+        private void LateUpdate()
+        {
             HandleRotation();
             UpdateNoiseAmplitude();
         }

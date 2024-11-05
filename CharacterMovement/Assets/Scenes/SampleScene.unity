@@ -308,7 +308,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271062043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daca56d2826d2b04b97102fbe48616e3, type: 3}
   m_Name: 
@@ -608,7 +608,7 @@ MonoBehaviour:
   _slopeLimit: 45
   _stepOffset: 0.45
   _perchOffset: 0.5
-  _perchAdditionalHeight: 0.4
+  _perchAdditionalHeight: 0.3
   _slopeLimitOverride: 0
   _useFlatTop: 0
   _useFlatBaseForGroundChecks: 0
@@ -688,10 +688,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7335b2e9c9f91884da835a099b946025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTarget: {fileID: 1991242356}
   maxPitch: 80
   minPitch: -80
   mouseSensitivity: {x: 1.5, y: 1.25}
+  cameraTarget: {fileID: 1991242356}
   crouchedCamera: {fileID: 1831041188}
   unCrouchedCamera: {fileID: 802724760}
   amplitudeMultiplier: 1
@@ -978,6 +978,56 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1039301185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1039301187}
+  - component: {fileID: 1039301186}
+  m_Layer: 0
+  m_Name: PlayerInputHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1039301186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039301185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5afe7866cb0e4147b91377120b4286c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControls: {fileID: -944628639613478452, guid: 77c5ee279560a2d4bba6544fa6d7141a, type: 3}
+  actionMapName: Player
+  move: Move
+  look: Look
+  jump: Jump
+  crouch: Crouch
+--- !u!4 &1039301187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039301185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1063346038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,56 +1761,6 @@ MonoBehaviour:
   m_AmplitudeGain: 1
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!1 &1749717228
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1749717230}
-  - component: {fileID: 1749717229}
-  m_Layer: 0
-  m_Name: PlayerInputHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1749717229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749717228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5afe7866cb0e4147b91377120b4286c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: 77c5ee279560a2d4bba6544fa6d7141a, type: 3}
-  actionMapName: Player
-  move: Move
-  look: Look
-  jump: Jump
-  crouch: Crouch
---- !u!4 &1749717230
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749717228}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776161882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,10 +2159,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 225055570}
   - {fileID: 653598141}
+  - {fileID: 1039301187}
   - {fileID: 271062048}
   - {fileID: 802724761}
   - {fileID: 1831041189}
   - {fileID: 1709959701}
   - {fileID: 1576246521}
   - {fileID: 2143878426}
-  - {fileID: 1749717230}
