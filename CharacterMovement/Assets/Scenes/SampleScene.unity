@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 271062047}
   - component: {fileID: 271062046}
   - component: {fileID: 271062044}
-  - component: {fileID: 271062045}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -301,21 +300,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &271062045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271062043}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daca56d2826d2b04b97102fbe48616e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 1991242357}
-  _distanceToTarget: 6
-  _smoothTime: 0.1
 --- !u!81 &271062046
 AudioListener:
   m_ObjectHideFlags: 0
@@ -548,21 +532,21 @@ MonoBehaviour:
   _rotationMode: 0
   _rotationRate: 540
   _startingMovementMode: 1
-  _maxWalkSpeed: 3
+  _maxWalkSpeed: 1.5
   _minAnalogWalkSpeed: 0
-  _maxAcceleration: 20
-  _brakingDecelerationWalking: 20
+  _maxAcceleration: 5
+  _brakingDecelerationWalking: 5
   _groundFriction: 8
   _canEverCrouch: 1
   _crouchedHeight: 1.25
   _unCrouchedHeight: 2
-  _maxWalkSpeedCrouched: 2
+  _maxWalkSpeedCrouched: 0.75
   _maxFallSpeed: 40
   _brakingDecelerationFalling: 0
   _fallingLateralFriction: 0.3
   _airControl: 0.3
   _canEverJump: 1
-  _canJumpWhileCrouching: 1
+  _canJumpWhileCrouching: 0
   _jumpMaxCount: 1
   _jumpImpulse: 5
   _jumpMaxHoldTime: 0
@@ -694,7 +678,7 @@ MonoBehaviour:
   cameraTarget: {fileID: 1991242356}
   crouchedCamera: {fileID: 1831041188}
   unCrouchedCamera: {fileID: 802724760}
-  amplitudeMultiplier: 1
+  cameraNoiseAmplitudeMultiplier: 1
 --- !u!1 &802724759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +997,7 @@ MonoBehaviour:
   look: Look
   jump: Jump
   crouch: Crouch
+  interact: Interact
 --- !u!4 &1039301187
 Transform:
   m_ObjectHideFlags: 0
@@ -1623,7 +1608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1709959699
 MonoBehaviour:
   m_ObjectHideFlags: 0

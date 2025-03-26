@@ -17,16 +17,19 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string look = "Look";
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string crouch = "Crouch";
+    [SerializeField] private string interact = "Interact";
 
     private InputAction _moveAction;
     private InputAction _lookAction;
     private InputAction _jumpAction;
     private InputAction _crouchAction;
+    private InputAction _interactAction;
     
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool CrouchTriggered { get; private set; }
+    public bool InteractTriggered { get; private set; }
     
     public static PlayerInputHandler Instance { get; private set; }
 
@@ -46,6 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
         _lookAction = playerControls.FindActionMap(actionMapName).FindAction(look);
         _jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
         _crouchAction = playerControls.FindActionMap(actionMapName).FindAction(crouch);
+        _interactAction = playerControls.FindActionMap(actionMapName).FindAction(interact);
         RegisterInputActions();
     }
 
@@ -62,6 +66,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         _crouchAction.performed += context => CrouchTriggered = true;
         _crouchAction.canceled += context => CrouchTriggered = false;
+
+        _interactAction.performed += context => InteractTriggered = true;
+        _interactAction.canceled += context => InteractTriggered = false;
     }
 
     private void OnEnable()
@@ -70,6 +77,7 @@ public class PlayerInputHandler : MonoBehaviour
         _lookAction.Enable();
         _jumpAction.Enable();
         _crouchAction.Enable();
+        _interactAction.Enable();
     }
 
     private void OnDisable()
@@ -78,5 +86,6 @@ public class PlayerInputHandler : MonoBehaviour
         _lookAction.Disable();
         _jumpAction.Disable();
         _crouchAction.Disable();
+        _interactAction.Disable();
     }
 }

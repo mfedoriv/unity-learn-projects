@@ -30,8 +30,8 @@ namespace Player
         [Tooltip("Cinemachine Virtual Camera positioned at desired un-crouched height.")]
         [SerializeField] private CinemachineVirtualCamera unCrouchedCamera;
         
-        [Tooltip("Noise amplitude gain multiplier.")]
-        [SerializeField] private float amplitudeMultiplier = 1f;
+        [Tooltip("Camera noise amplitude gain multiplier.")]
+        [SerializeField] private float cameraNoiseAmplitudeMultiplier = 1f;
         
         private CinemachineBasicMultiChannelPerlin _unCrouchedNoiseProfile;
         private CinemachineBasicMultiChannelPerlin _crouchedNoiseProfile;
@@ -75,16 +75,12 @@ namespace Player
 
         private void OnEnable()
         {
-            // Subscribe to Character events
-
             _character.Crouched += OnCrouched;
             _character.UnCrouched += OnUnCrouched;
         }
 
         private void OnDisable()
         {
-            // Unsubscribe to Character events
-
             _character.Crouched -= OnCrouched;
             _character.UnCrouched -= OnUnCrouched;
         }
@@ -92,6 +88,9 @@ namespace Player
         private void Update()
         {
             HandleMovement();
+            HandleJumping();
+            HandleCrouching();
+            HandleInteraction();
         }
 
         private void LateUpdate()
@@ -105,9 +104,6 @@ namespace Player
             Vector3 inputDirection = new Vector3(_inputHandler.MoveInput.x, 0f, _inputHandler.MoveInput.y);
             Vector3 worldDirection = transform.TransformDirection(inputDirection);
             worldDirection.Normalize();
-
-            HandleJumping();
-            HandleCrouching();
             _character.SetMovementDirection(worldDirection);
         }
 
@@ -183,6 +179,15 @@ namespace Player
             _cameraTargetPitch = MathLib.ClampAngle(_cameraTargetPitch + value, minValue, maxValue);
             cameraTarget.transform.localRotation = Quaternion.Euler(-_cameraTargetPitch, 0.0f, 0.0f);
         }
+        
+        
+        private void HandleInteraction()
+        {
+            if (_inputHandler.InteractTriggered)
+            {
+                Debug.Log("Interaction performed");
+            }
+        }
 
         private void UpdateNoiseAmplitude()
         {
@@ -194,12 +199,18 @@ namespace Player
             if (_character.IsCrouched())
             {
                 float speedRatio = Mathf.Clamp01(currentSpeed / _character.maxWalkSpeed);
-                _crouchedNoiseProfile.m_AmplitudeGain = speedRatio * amplitudeMultiplier;
+                _crouchedNoiseProfile.m_AmplitudeGain = speedRatio * cameraNoiseAmplitudeMultiplier;
             }
             else
             {
                 float speedRatio = Mathf.Clamp01(currentSpeed / _character.maxWalkSpeedCrouched);
-                _unCrouchedNoiseProfile.m_AmplitudeGain = speedRatio * amplitudeMultiplier;
+                _unCrouchedNoiseProfile.m_AmplitudeGain = speedRatio * cameraNoiseAmplitudeMultiplier;
+            }
+
+            if (!_character.IsOnGround())
+            {
+                _crouchedNoiseProfile.m_AmplitudeGain = 0;
+                _unCrouchedNoiseProfile.m_AmplitudeGain = 0;
             }
         }
     }
