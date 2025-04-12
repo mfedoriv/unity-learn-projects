@@ -36,6 +36,7 @@ namespace Player
         private CinemachineBasicMultiChannelPerlin _unCrouchedNoiseProfile;
         private CinemachineBasicMultiChannelPerlin _crouchedNoiseProfile;
         private Character _character;
+        private PlayerInteractor _playerInteractor;
         private float _cameraTargetPitch;
         private PlayerInputHandler _inputHandler;
 
@@ -45,6 +46,12 @@ namespace Player
             if (_character == null)
             {
                 Debug.LogError("Character component is missing on PlayerController.");
+            }
+
+            _playerInteractor = GetComponent<PlayerInteractor>();
+            if (_playerInteractor == null)
+            {
+                Debug.LogError("PlayerInteractor component is missing on PlayerController.");
             }
             
             if (unCrouchedCamera != null)
@@ -185,7 +192,8 @@ namespace Player
         {
             if (_inputHandler.InteractTriggered)
             {
-                Debug.Log("Interaction performed");
+                Debug.Log("Interact Triggered");
+                _playerInteractor.PlayerInteract();
             }
         }
 
